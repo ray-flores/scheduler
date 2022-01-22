@@ -8,14 +8,15 @@ export default function DayList(props) {
 
   //console.log('From DayList', days);
 
-  const parsedDays = days.map(d => <DayListItem 
-    key={ d.id } 
-    name={ d.name } 
-    spots= { d.spots } 
-    selected={ value === d.name }
-    setDay={ onChange }
+  const parsedDays = days.map((d) => (
+    <DayListItem
+      key={d.id}
+      name={d.name}
+      spots={d.spots}
+      selected={value === d.name}
+      setDay={onChange}
     />
-  );
+  ));
 
   return (
 
