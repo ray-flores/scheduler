@@ -6,6 +6,8 @@ export default function DayList(props) {
 
   const { days, value, onChange } = props;
 
+  //console.log('From DayList', days);
+
   const parsedDays = days.map(d => <DayListItem 
     key={ d.id } 
     name={ d.name } 
