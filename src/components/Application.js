@@ -30,7 +30,6 @@ export default function Application(props) {
           appointments: all[1].data,
           interviewers: all[2].data,
         }));
-        console.log(all[2].data);
       })
       .catch((error) => {
         console.log(error);
@@ -41,7 +40,7 @@ const dailyAppointments = getAppointmentsForDay(state, state.day)
 
 const parsedAppointments = dailyAppointments.map(a => {
   const interview = getInterview(state, a.interview);
-  <Appointment key={a.id} interview={interview} {...a} />
+  return <Appointment key={a.id} interview={interview} {...a} />
 });
 
 
