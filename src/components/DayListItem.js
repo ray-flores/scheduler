@@ -12,6 +12,7 @@ export default function DayListItem(props) {
 });
 
   const handleClick = () => {
+    console.log("day=", name);
     setDay(name);
   }
 
@@ -28,7 +29,7 @@ export default function DayListItem(props) {
   } 
 
   return (
-    <li onClick={handleClick} className={dayClass}>
+    <li onClick={ handleClick } className={dayClass}>
       <h2 className="text--regular">{name}</h2> 
       <h3 className="text--light">{formatSpots(spots)}</h3>
     </li>
