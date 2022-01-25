@@ -19,9 +19,9 @@ export default function Form(props) {
     onCancel();
   }
 
-  const handleOnSave = () => (
+  const handleOnSave = () => {
     onSave(studentvalue, interviewervalue)
-  );
+  };
 
 
   return (

@@ -4,7 +4,7 @@ import DayList from "./DayList";
 import "components/Application.scss";
 import "components/Appointment";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 
 export default function Application(props) {
@@ -41,13 +41,61 @@ export default function Application(props) {
       });
   }, []);
 
+
+  const interviewers = getInterviewersForDay(state, state.day)
+
   const dailyAppointments = getAppointmentsForDay(state, state.day)
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios.put(`/api/appointments/${id}`, { id, interview })
+      .then(() => {
+        setState({
+          ...state,
+          appointments
+        })
+      })
+  };
+
+  function cancelInterview(id) {
+    
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    }
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+    
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(() => {
+        setState({
+          ...state,
+          appointments
+        })
+      })
+  };
 
   const parsedAppointments = dailyAppointments.map(a => {
     const interview = getInterview(state, a.interview);
-    return <Appointment key={a.id} interview={interview} {...a} />
+    return <Appointment
+    key={a.id}
+    id={a.id} 
+    interview={interview} 
+    interviewers={interviewers} 
+    bookInterview={bookInterview}
+    cancelInterview={cancelInterview}
+    />
   });
-
 
   return (
     <main className="layout">
