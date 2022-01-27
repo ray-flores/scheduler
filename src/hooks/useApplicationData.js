@@ -24,28 +24,20 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-
+    
     const getSpotsForDay = (day) => {
       return day.appointments.length - day.appointments.reduce((count, id) => (appointments[id].interview ? count + 1 : count), 0)
     }
 
     const days = state.days.map((day) => {
-      return day.appointments.includes(id)
-        ? {
-            ...day,
-            spots: getSpotsForDay(day),
-          }
-        : day;
-    });
+      return day.appointments.includes(id) ?
+      {...day,
+      spots: getSpotsForDay(day) } : day
+    }) 
 
     return axios.put(`/api/appointments/${id}`, { id, interview })
       .then(() => {
-        setState((prev) => ({ ...prev, appointments, days }))
-        // setState({
-        //   ...state,
-        //   appointments,
-        //   days: days
-        // })
+        setState((prev) => ({...prev, appointments, days}))
       })
   };
 
@@ -56,27 +48,12 @@ export default function useApplicationData() {
     const modifier = action === 'book' ? -1 : 1;
 
     for (let day in days) {
-      if (days[day].name === state.day) {
+      if(days[day].name === state.day) {
         days[day].spots += modifier;
       }
-    }
+    } 
     return days;
-    // const days = state.days.map(day => {
-    //   if (day.name === state.day) {
-    //     day.spots = day.appointments.filter(id => {
-    //       return state.appointments[id].interview === null
-    //     }).length;
-    //   }
-    //   return day;
-    // });
-    // return days
-    // {
-    //   ...state,
-    //   days: [...days]
-    // }
   }
-
-  const days = updateSpots("cancel");
 
   function cancelInterview(id) {
     const appointment = {
@@ -88,6 +65,8 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
+
+    const days = updateSpots("cancel");
 
     return axios
       .delete(`http://localhost:8001/api/appointments/${id}`)
@@ -118,7 +97,7 @@ export default function useApplicationData() {
         console.log(error);
       });
   }, []);
-
+  
 
   return {
     state,

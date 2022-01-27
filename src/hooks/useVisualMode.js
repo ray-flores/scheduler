@@ -18,7 +18,6 @@ export default function useVisualMode(initial) {
       setHistory(newHistory);
       setMode(newMode);
     }
-
   }
 
   function back() {
@@ -31,7 +30,6 @@ export default function useVisualMode(initial) {
       const previous = newHistory.slice(0, history.length - 1);
       setHistory(previous);
     }
-
   }
 
   return {
