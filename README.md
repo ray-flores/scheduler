@@ -23,3 +23,5 @@ Home
 Edit/Create
 
 Delete
+
+!["Delete"](https://github.com/ray-flores/scheduler/blob/master/docs/delete.png?raw=true)
