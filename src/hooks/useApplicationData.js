@@ -11,7 +11,6 @@ export default function useApplicationData() {
   });
 
   const setDay = day => {
-    console.log(day)
     setState({ ...state, day })
   };
 
