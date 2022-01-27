@@ -20,7 +20,11 @@ Install dependencies with `npm install`.
 
 Home
 
+!["Home"](https://github.com/ray-flores/scheduler/blob/master/docs/home.png?raw=true)
+
 Edit/Create
+
+!["Edit/Create"](https://github.com/ray-flores/scheduler/blob/master/docs/edit-create.png?raw=true)
 
 Delete
 
