@@ -1,23 +1,25 @@
 # Interview Scheduler
 
+Is a Single Page Application that let's the user schedule interviews!
+
 ## Setup
 
 Install dependencies with `npm install`.
 
-## Running Webpack Development Server
+## Tech Stack
 
-```sh
-npm start
-```
+- Node
+- React
+- Axios
+- Storybook
+- Cypress
+- Jest
 
-## Running Jest Test Framework
 
-```sh
-npm test
-```
+## Screenshots
 
-## Running Storybook Visual Testbed
+Home
 
-```sh
-npm run storybook
-```
+Edit/Create
+
+Delete

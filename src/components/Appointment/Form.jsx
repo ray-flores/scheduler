@@ -8,6 +8,7 @@ export default function Form(props) {
 
   const [studentvalue, setStudent] = useState(student || "");
   const [interviewervalue, setInterviewer] = useState(interviewer || null);
+  const [error, setError] = useState("");
 
   const reset = () => {
     setStudent("");
@@ -17,15 +18,27 @@ export default function Form(props) {
   const cancel = () => {
     reset();
     onCancel();
+    setError("");
   }
 
   const handleOnSave = () => {
     onSave(studentvalue, interviewervalue)
   };
 
+  function validate() {
+    if (studentvalue === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+    if (!interviewervalue) {
+      setError("Choose an interviewer");
+      return;
+    }
+    setError("");
+    handleOnSave();
+  }
 
   return (
-
   <main className="appointment__card appointment__card--create">
   <section className="appointment__card-left">
     <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
@@ -36,7 +49,9 @@ export default function Form(props) {
         placeholder="Enter Student Name"
         value={ studentvalue }
         onChange={(e) => setStudent(e.target.value)}
+        data-testid="student-name-input"
       />
+      <section className="appointment__validation">{error}</section>
     </form>
     <InterviewerList 
       interviewers={ interviewers }
@@ -47,11 +62,10 @@ export default function Form(props) {
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={ cancel }>Cancel</Button>
-      <Button confirm onClick={ handleOnSave }>Save</Button>
+      <Button confirm onClick={ validate }>Save</Button>
     </section>
   </section>
   </main>
 
   );
-
 }
